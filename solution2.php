@@ -14,26 +14,28 @@ for ($i = 0; $i < $n; $i++) {
 
 // find gaps
 $full_frames = range($frames[0], end($frames));
-$n = count($full_frames);
-$gap_n = 0;
+$n = end($frames);
 $gaps = [];
-$last = false;
 $largest_gap = [];
-$big = 0;
+$last_largest_gap = 0;
 $missing = 0;
+$ngap = 0;
+$gap_array_openned = false;
 
 for ($i = 0; $i < $n; $i++) {
     if (in_array($full_frames[$i], $frames)) {
-        if ($last) {
-            $gaps[$gap_n][] = $full_frames[$i - 1];
-            $missing += ($check_larg = $gaps[$gap_n][1] - $gaps[$gap_n][0]) + 1;
-            $largest_gap = ($check_larg >= $big) ? ($big = $check_larg) || true ? $gap_n : false : $largest_gap;
-            $last = false;
+        if ($gap_array_openned) {
+            $gaps[$ngap][] = $full_frames[$i - 1];
+            $check_larg = $gaps[$ngap][1] - $gaps[$ngap][0];
+            $missing += $check_larg + 1;
+            $largest_gap = ($check_larg >= $last_largest_gap) ? ($last_largest_gap = $check_larg) || true ? $ngap : false : $largest_gap;
+            
+            $gap_array_openned = false;
         }
-        $gap_n = isset($gaps[$gap_n]) ? ($gap_n + 1) : $gap_n;
-    } elseif (!$last) {
-        $gaps[$gap_n][] = $full_frames[$i];
-        $last = true;
+        $ngap = isset($gaps[$ngap]) ? ($ngap + 1) : $ngap;
+    } elseif (!$gap_array_openned) {
+        $gaps[$ngap][] = $full_frames[$i];
+        $gap_array_openned = true;
     }
 }
 
