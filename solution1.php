@@ -26,7 +26,7 @@ for($i=0; $i<$n-1; $i++){
         $end = $frames[$i] + $gap;
         $gaps[] = [$start, $end];
 
-        ($gap >= $last_largest_gap) && ($last_largest_gap = $gap) && ($largest_gap = $ngap);
+        ($gap > $last_largest_gap) && ($last_largest_gap = $gap) && ($largest_gap = $ngap);
         $ngap++;
         $missing += $gap;
     }
