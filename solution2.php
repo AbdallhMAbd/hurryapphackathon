@@ -26,9 +26,9 @@ for ($i = 0; $i < $n; $i++) {
     if (in_array($full_frames[$i], $frames)) {
         if ($gap_array_openned) {
             $gaps[$ngap][] = $full_frames[$i - 1];
-            $check_larg = $gaps[$ngap][1] - $gaps[$ngap][0];
-            $missing += $check_larg + 1;
-            $largest_gap = ($check_larg >= $last_largest_gap) ? ($last_largest_gap = $check_larg) || true ? $ngap : false : $largest_gap;
+            $gap = $gaps[$ngap][1] - $gaps[$ngap][0];
+            $missing += $gap + 1;
+            $largest_gap = ($gap >= $last_largest_gap) ? ($last_largest_gap = $gap) || true ? $ngap : false : $largest_gap;
             
             $gap_array_openned = false;
         }
