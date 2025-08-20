@@ -1,7 +1,6 @@
 <?php
 
 $frames = [2,1,3,5,6,10,16,11];
-
 $n = count($frames);
 
 // sort frames
@@ -14,19 +13,28 @@ for($i=0; $i<$n; $i++){
 }
 
 // find gaps
-$ngap = 0;
-$largest_gap = 0;
-$missing = 0;
 $gaps = [];
+$largest_gap = 0;
+$last_largest_gap = 0;
+$missing = 0;
+$ngap = 0;
+
 for($i=0; $i<$n-1; $i++){
     $gap = ($frames[$i+1] - $frames[$i] - 1);
-    if($gap !== 0){
-        $gaps[] = [$frames[$i]+1,$frames[$i]+$gap];
-        $largest_gap = ($gap > $largest_gap) ? $ngap : $largest_gap;
+    if($gap > 0){
+        $start = $frames[$i] + 1;
+        $end   = $frames[$i] + $gap;
+        $gaps[] = [$start, $end];
+
+        ($gap >= $last_largest_gap) && ($last_largest_gap = $gap) && ($largest_gap = $ngap);
         $ngap++;
         $missing += $gap;
     }
 }
 
-$output = ["gaps"=>$gaps,"largest_gap"=>$gaps[$largest_gap],"missing_count"=>$missing];
+$output = [
+    "gaps" => $gaps,
+    "largest_gap" => $gaps[$largest_gap],
+    "missing_count" => $missing
+];
 print_r($output);
