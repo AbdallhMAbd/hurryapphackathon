@@ -23,7 +23,7 @@ for($i=0; $i<$n-1; $i++){
     $gap = ($frames[$i+1] - $frames[$i] - 1);
     if($gap > 0){
         $start = $frames[$i] + 1;
-        $end   = $frames[$i] + $gap;
+        $end = $frames[$i] + $gap;
         $gaps[] = [$start, $end];
 
         ($gap >= $last_largest_gap) && ($last_largest_gap = $gap) && ($largest_gap = $ngap);
